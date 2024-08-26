@@ -1,0 +1,17 @@
+|
+|
+| | |
+| | |   => 4, 2, 1 
+
+- - 
+- -
+- - - - => 3, 2, 1, 1
+
+
+two pointers
+
+Right=> Getting the distance from initial must be equal of size of corresponding 
+
+sizeIn(n - i - 1) = n must be equal  arr[i]
+increasing i by 1
+for range 0 to size(n - i -1)
