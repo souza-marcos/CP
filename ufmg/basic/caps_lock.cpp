@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define _ ios_base::sync_with_stdio(0); cin.tie(0);
+
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fll;
+
+#define endl "\n"
+
+int main(){ _
+
+    string in; cin >> in;
+    bool caps = true;
+    for(int i = 1; i < in.size(); i++)
+    {
+        char c = in[i];
+        if(!(c >= 'A' and c <= 'Z')) { cout << in << endl; return 0;} 
+    }
+    if(in[0] < 'A' or in[0] > 'Z') in[0] = toupper(in[0]);
+    else in[0] = tolower(in[0]);
+
+    for(int i = 1; i < in.size(); i++) in[i] = tolower(in[i]);
+
+    cout << in << endl;
+} 

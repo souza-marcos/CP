@@ -1,0 +1,2 @@
+// All digits are the same
+1/1

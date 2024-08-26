@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/tree_policy.hpp> 
+// using namespace __gnu_pbds; 
+// typedef tree<int, null_type, greater<int>, rb_tree_tag, tree_order_statistics_node_update> set_t;
+
+
+#define _ ios_base::sync_with_stdio(0); cin.tie(0);
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fll;
+const long double PI = 3.141592653589793238462643383279502884L;
+
+#define sz(x) (int)x.size()
+
+void solve(){
+    int v[3]; cin >> v[0] >> v[1] >> v[2];
+    for(int i = 0; i < 5; i++){
+        int minval_i=0;
+        for(int j = 1; j < 3; j++){
+            if(v[j] < v[minval_i]) minval_i = j;
+        }
+        v[minval_i] ++;
+    }
+    cout << v[0] * v[1] * v[2] << endl;
+}
+
+int main(){ _
+    int t; cin >> t;
+    while( t-- )solve();
+
+    return 0;
+} 

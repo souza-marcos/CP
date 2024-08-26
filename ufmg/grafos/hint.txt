@@ -1,0 +1,2 @@
+-> procure um nó com apenas um vertice => Achamos y
+-> naqule nó que não temos um vertice => Achamos x;
