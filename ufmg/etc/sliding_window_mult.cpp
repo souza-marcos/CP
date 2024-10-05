@@ -1,29 +1,41 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <set>
+
 using namespace std;
 
-#define _ ios_base::sync_with_stdio(0); cin.tie(0);
-#define endl '\n'
-typedef long long ll;
-const int INF = 0x3f3f3f3f;
-const ll LINF = 0x3f3f3f3f3f3f3f3fll;
-#define sz(a) (int)(a).size()
+vector<int> slidingWindowMaximum(const vector<int>& nums, int k) {
+    vector<int> result;
+    multiset<int> window;  // To maintain the elements of the sliding window
 
-int main(){ _
+    for (int i = 0; i < nums.size(); ++i) {
+        // Insert the current element into the multiset
+        window.insert(nums[i]);
 
-    int n; cin >> n;
-    vector<int> v(n); for(int& el: v) cin >> el;
-    multiset<int> mp;
-    vector<int> ans; int k; cin >> k;
-    for(int i = 0; i < k; i ++) mp.insert(v[i]);
-    ans.push_back(*mp.rbegin());
-    for(int i = k; i < n; i ++){    
-        mp.erase(v[i - k]);
-        mp.insert(v[i]);
-        ans.push_back(*mp.rbegin());
+        // Once we've added enough elements to form a full window
+        if (i >= k - 1) {
+            // The maximum element in the current window is the largest element in the multiset
+            result.push_back(*window.rbegin());
+
+            // Remove the element that is sliding out of the window
+            window.erase(window.find(nums[i - k + 1]));
+        }
     }
 
-    for(auto el: ans) cout << el << " ";
+    return result;
+}
+
+int main() {
+    vector<int> nums = {1, 3, -1, -3, 5, 3, 6, 7};
+    int k = 3;
+
+    vector<int> result = slidingWindowMaximum(nums, k);
+
+    // Print the result
+    for (int x : result) {
+        cout << x << " ";
+    }
     cout << endl;
 
     return 0;
-} 
+}
