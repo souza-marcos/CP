@@ -10,26 +10,28 @@ const double PI = acos(-1);
 
 void solve(){
     ll n, k; cin >> n >> k;
-    ll sum= 0;
-    vector<ll> cards(n); for(auto& el: cards) cin >> el, sum += el;
-
+    ll sum = 0;
+    vector<ll> cards(n); 
+    for(ll &el: cards) cin >> el, sum += el;
     sort(cards.rbegin(), cards.rend());
-    // Find the minimum of partitions
     
-    auto canpart = [&](ll guess){
-        ll h = ceil(sum/(double)guess);
-        
-        return true;
-    };
-    
-    ll l = cards[0]-1, r = 1e18;
-    while(l+1<r){
-        ll m = (l+r)/2;
-        if(canpart(m)) r=m;
-        else l=m;
+    for(int res = n; res >= 1; res --){
+        ll minslots = res * cards[0];
+        // cout << "SUM: " << sum << ", MINSLOTS: " << minslots << endl;
+        if(sum <= minslots and (minslots - sum) <= k){
+            // cout << "K= " << k << ",  " << (minslots - sum) << endl;
+            cout << res << endl;
+            return;
+        }
+        if(sum > minslots){
+            int left = sum % res;
+            left = (left == 0? 0: res - left);
+            if(k >= left){
+                cout << res << endl;
+                return ;
+            }
+        }
     }
-    // TODO: Size of partition
-    cout << r << endl;
 }
 
 int main(){ _
