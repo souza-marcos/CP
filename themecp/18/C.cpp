@@ -10,20 +10,16 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 void solve(){
     int n, m; cin >> n >> m;
     ll cnt =0;
-
     n %= m;
     
-    if(m%2 == 1 and n > 0){
-        cout << -1 << endl;
-        return;
-    }
-
-    while(n != 0){
+    ll ops = 0;
+    while(n != 0 and ops < 500){
         while(n < m) cnt += n, n <<= 1;
         n -= m;
+        ops ++;
     }
-    cout << cnt << endl;
-
+    if(n == 0) cout << cnt << endl;
+    else cout << -1 << endl;
 }
 
 int main(){ _
