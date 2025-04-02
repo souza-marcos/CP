@@ -11,18 +11,18 @@ void solve(){
     ll n, m, k; cin >> n >> m >> k;
     if(k > 3) cout << 0 << endl;
     else if(k == 1){
-        cout << 1 << endl;
+        cout << 1 << endl; // put 0
     } else if(k == 2){
         if(m >= n){
-            ll qtd = m/n + n - 1;
+            ll qtd = m/n + n - 1; // put 1..n + multiples of n
             cout << qtd << endl;
         }else { 
-            cout << n-1 << endl;
+            cout << m << endl; // oh shit
         }
     } else{
         if(m <= n) cout << 0 << endl;
         else{
-            cout << m - n - m/n + 1 << endl;
+            cout << m - n - m/n +1 << endl;
         }
     }
 

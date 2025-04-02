@@ -11,23 +11,28 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 int main(){ _
     const int MAX = 1e6 + 10;
-    vector<bool> eh_primo(MAX, true);
-    
+    vector<ll> mindiv(1e6 + 10);
+    iota(mindiv.begin(), mindiv.end(), 0);
     for(ll i = 2; i < MAX; i ++){
-        if(eh_primo[i]){
+        if(mindiv[i] == i){
             for(ll j = i*i; j < MAX; j += i)
-                eh_primo[j]=true;
+                mindiv[j]=min(mindiv[j], i);
         }
     }
+    // for(int i = 0 ; i < 100; i ++) cout << mindiv[i] << " ";
+    // cout << endl;
 
     int t; cin >> t;
     while(t --){
 
         ll n, m; cin >> n >> m;
-        if(n % m == 0){
-            cout << "NO\n";
-        } else
-            cout << (eh_primo[m] ? "YES\n" : "NO\n");
+        if(n == 1){
+            cout << "YES\n";
+            continue;
+        }
+        
+        if(m >= mindiv[n]) cout << "NO\n";
+        else cout << "YES\n";
     }
     return 0;
 } 
