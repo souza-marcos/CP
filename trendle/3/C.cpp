@@ -14,7 +14,9 @@ int32_t main(){ _
     vector<int> arr(n); 
     
     int cnt = 0;
-    for(auto& el : arr) cin >> el, d = __gcd(d, el), cnt += (el == 1ll);
+    for(auto& el : arr) 
+        cin >> el, d = __gcd(d, el), cnt += (el == 1ll);
+    
     if(d != 1) {
         cout << -1 << endl;
         exit(0);

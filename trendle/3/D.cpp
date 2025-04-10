@@ -10,22 +10,29 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 void solve(){
 
     int n, k; cin >> n >> k;
-
-    vector<int> cnt(n + 1); // Color assigned
-
-    vector<tuple<int, int, int>> edges(n-1);
-    for(auto&[w,a,b] : edges){
-        cin >> a >> b >> w;
+    vector<vector<pair<int, int>>> g(n);
+    for(int i = 0; i < n-1; i ++){
+        int a, b, w; cin >> a >> b >> w;
+        a --, b--;
+        g[a].push_back({w, b});
+        g[b].push_back({w, a});
     }
-    sort(edges.rbegin(), edges.rend());
 
-    ll res = 0;
-    for(auto [w, a, b] : edges){
-        if(cnt[a] >= k or cnt[b] >= k) continue;
-        res += w;
-        cnt[a] ++, cnt[b] ++;
-    }
-    cout << res << endl;
+    ll dp[n][2]; memset(dp,-1, sizeof dp);
+
+    auto dfs = [&](int v, int p, bool tudo) -> ll {
+        auto &res = dp[v][tudo];
+        if(res != -1) return res;
+
+        vector<ll> adj;
+        for(auto [w, u] : g[v]){
+            ll down_all = dfs(u, v, 1), down_no = dfs(u, v, 0);
+
+        }
+
+        return res;
+    };
+
 }
 
 int main(){ _ 
