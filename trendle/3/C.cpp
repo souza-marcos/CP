@@ -24,8 +24,10 @@ int32_t main(){ _
     
     int mind = INF;
     for(int i = 0; i < n; i ++){
+        int d = arr[i];
         for(int j = i + 1; j < n; j++){
-            if(__gcd(arr[i], arr[j]) == 1) {
+            d =__gcd(d, arr[j]);
+            if(d == 1) {
                 mind = min(mind, j-i);
                 break;
             }
