@@ -44,14 +44,21 @@ int main(){
 	for(auto el : euler) cout << el + 1 << " ";
 	cout << endl;
 
+	vector<bool> asked(n); // and obtain 
 	int cur = n, start= 0;
 	while(cur > 1){
-		// cout << start << " " << cur << endl;
+		cout << start << " " << cur << endl;
 		int j= start;
 		set<int> query;
+		int ja = 0;
+
 		while(true){
-			query.insert(euler[j++]);
-			if(sz(query) > cur/2) break;
+			int next = euler[j++]; 
+			if(!query.count(next)) ja ++;
+			asked[next] = 1;
+			query.insert(next);
+			// cout << next << " " << ja << " " << sz(query) << " " << sz(query) - ja << " "  << cur/2 << endl;
+			if((sz(query)-ja) > cur/2) break;
 		}
 
 		cout << "? " << sz(query);
@@ -60,9 +67,14 @@ int main(){
 
 		int res; cin >> res;
 		if(res == -1) exit(0);
-		if(res == 0) cur -= sz(query)-1, start = j;
-		else cur = sz(query);
-
+		if(res == 0) {
+			cur = cur - sz(query), start = j;
+			while(asked[euler[start]]) start ++;
+		}
+		else {
+			cur = sz(query);
+			while(asked[euler[start]]) start ++;
+		}
 	}
 	cout << "! " << euler[start]+1 << endl;
 	cout.flush();
