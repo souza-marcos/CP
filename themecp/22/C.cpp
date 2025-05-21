@@ -9,20 +9,15 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 void solve(){
     int n, k; cin >> n >> k;
-
-    int cur = n, cnt = 0;
-    
-    while(cur/2 <= k){
-        cur >>= 1;
-        k -= cur;
-        cnt ++;
-    }
-    cout << (2*k - 1)*(1 << cnt) << endl; 
+    int pot = 1, cur = (n + 1)/2; n-=cur; 
+    while(cur < k) 
+        k -= cur, cur = (n + 1)/2, n -= cur, pot*=2;
+    cout << pot * (2 * k - 1) << endl;
 }
 
 
 
-int main(){ // _
+int main(){ _
     int t; cin >> t;
     while(t --) solve();
     return 0;

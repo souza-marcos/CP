@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define _ ios_base::sync_with_stdio(0); cin.tie(0);
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fll;
+#define sz(x) (int)x.size()
+
+int main(){ _
+    int n; cin >> n;
+    vector<pair<int, int>> events;
+    for(int i = 0; i < n; i ++){
+        int a, b; cin >> a >> b;
+        events.emplace_back(a, +1);
+        events.emplace_back(b, -1);
+    }    
+
+    sort(events.begin(), events.end());
+    int cur = 0, res = 0;
+    for(auto [time, type] : events){
+        cur += type;
+        res = max(res, cur);
+    }
+    cout << res << endl;
+    return 0;
+} 

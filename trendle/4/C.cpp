@@ -9,38 +9,36 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 int main(){ _ 
     int n, m; cin >> n >> m;
-    vector<int> vis(n, 0);
+    vector<int> vis(n, 0), res;
     vector<vector<int>> g(n);
 
     for(int i = 0; i < m; i ++){
         int a, b; cin >> a >> b;
         a --, b--;
-        g[b].push_back(a);
+        g[a].push_back(b);
     }
 
-    for(auto& row : g) sort(row.begin(), row.end());
+    vector<int> ind(n);
+    for(auto &row: g){
+        for(int u : row) ind[u] ++;
+    }
 
-    vector<int> res;
-    auto dfs = [&](auto&& dfs, int v) -> void {
-        cout << v << " ";
-        vis[v] = 1;
-        for(int u: g[v]){
-            if(vis[u] == 1){
-                cout << -1 << endl;
-                exit(0);
-            }
-            if(vis[u] == 0) dfs(dfs, u);
+    priority_queue<int, vector<int>, greater<int>> pq;
+    for(int i = 0; i < n; i ++) 
+        if(ind[i] == 0) pq.push(i);
+
+    while(sz(pq)){
+        int cur = pq.top(); pq.pop();
+        res.push_back(cur);
+        for(int u : g[cur]){
+            if(--ind[u] == 0) pq.push(u);
         }
-        vis[v] = 2;
-        res.push_back(v);
-    };
-
-    for(int i = 0; i < n; i ++){
-        if(vis[i] == 0) dfs(dfs, i);
     }
 
-    cout << endl;
-    for(auto el: vis) cout << el + 1 << " ";
-    cout << endl;
+    if(sz(res) == n){
+        for(auto el: res) cout << el + 1 << " ";
+        cout << endl;
+    } else 
+        cout << -1 << endl;
 
 } 
