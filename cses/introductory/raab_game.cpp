@@ -31,11 +31,6 @@ int main(){ _
             cout << "NO\n";
             continue;
         }
-
-
-
     }
-
-
     return 0;
 } 
