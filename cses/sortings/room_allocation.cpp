@@ -10,14 +10,14 @@ int32_t main(){ _
     int n; cin >> n;
     vector<tuple<int, int, int>> customers(n); // end - start - idx
     int i = 0;
-    for(auto& [b, a, idx] : customers) cin >> a >> b, idx = i ++;
+    for(auto& [a, b, idx] : customers) cin >> a >> b, idx = i ++;
 
     sort(customers.begin(), customers.end());
     vector<int> res(n); // The group the customer is
     set<pair<int, int>> ms; // val_end, idx_last_val
 
     i = 0;
-    for(auto [b, a, idx] : customers){
+    for(auto [a, b, idx] : customers){
         auto it = ms.lower_bound({-a, INF});
         if(it == ms.end()){ // not found a group, create a new one
             res[idx] = i ++;
@@ -29,6 +29,7 @@ int32_t main(){ _
         }
     }
 
+    cout << i << endl;
     for(auto el : res) 
         cout << el + 1 << " ";
     cout << endl;
