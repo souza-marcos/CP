@@ -7,21 +7,17 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 #define sz(x) (int)x.size()
 
 int32_t main(){ _ 
-    int n; cin >> n;
-    int grid[n][n];
-    const int MOD = 1e9 + 7;
-    for(int i = 0; i < n; i ++){
-        string s; cin >> s;
-        for(int j = 0; j < n; j ++){
-            grid[i][j] = 0;
-            if(s[j]=='*') continue;
-            if(i == 0 and j == 0) grid[0][0] = 1;
-            if(i>0) grid[i][j] = grid[i-1][j]; 
-            if(j>0) grid[i][j] += grid[i][j-1];
-            grid[i][j] %= MOD;
-        }
+    int n, x; cin >> n >> x;
+    vector<int> price(n), pages(n);
+    for(int& el : price) cin >> el;
+    for(int& el : pages) cin >> el;
 
+    vector<int> dp(x + 1); // maximum pages to get with i first books and j budget 
+    for(int i = 0; i < n; i++){
+        for(int j = x-price[i]; j >= 0; j--){
+            dp[j+price[i]] = max(dp[j+price[i]], dp[j] + pages[i]);
+        }
     }
-    cout << grid[n-1][n-1] << endl;
+    cout << dp[x] << endl;
     return 0;       
 }
