@@ -7,32 +7,29 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 #define sz(x) (int)x.size()
 #define endl '\n'
 
-const int MOD = 1e9 + 7;
-inline ll mul(ll a, ll b){
-    a %= MOD, b %= MOD;
-    return a * b % MOD;
-}
+int main(){ _ 
 
-inline ll mul2(ll a, ll b){
-    a %= MOD-1, b %= MOD-1;
-    return a*b %(MOD-1);
-}
+    int n; cin >> n;
+    vector<int> arr(n);
+    iota(arr.begin(), arr.end(), 0);
+    int cnt = 0;
+    do{
+        bool ok = true;
+        for(int i = 0; i < n; i ++){
+            if(arr[i] == i){
+                ok = false;
+                break;
+            } 
+        }
+        if(ok){
+            for(auto el : arr) cout << el + 1 << " ";
+            cout << endl;
+            cnt ++;
+        }
 
-ll binpow(ll a, ll e, ll m = MOD){
-    ll res = 1;
-    while(e){
-        if(e&1) res = res * a % MOD;
-        a = a * a % MOD;
-        e >>= 1;
-    }
-    return res;
-}
+    }while(next_permutation(arr.begin(), arr.end()));
 
-inline ll inv(ll a, ll m = MOD){
-    return binpow(a, m-2); 
-}
+    cout << "Total: " << cnt << endl;
 
-
-int main (){
-    cout << inv(2, MOD -1) << " " << mul2(inv(2, MOD -1), 2) << " "  << mul(inv(2), 2) << endl;
-}
+    return 0;
+} 

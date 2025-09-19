@@ -9,27 +9,32 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 const int MAX = 1e6;
 
+// The maximum gap between primes in the range 1 .. 1e12 is ~ 600.
 int main(){ _ 
-    vector<bool> ehprimo(MAX + 1, 1);
-    vector<ll> primos; 
-    for(int i = 2; i <= MAX; i ++){
-        if(ehprimo[i])
-        {
-            for(int j = i * i; j <= MAX; j += i)
-                ehprimo[j] = 0;
-            primos.push_back(i);
-
-        }
-    }
 
     int t; cin >> t;
     while( t--){
         ll n; cin >> n;
-        ll st = sqrt(n);
-
-        for(ll i = st*st; i <= (st + 1) * (st + 1); i++){
-            if
+        if(n == 1) {
+            cout << "2\n";
+            continue;;
         }
+        while(true){
+            n ++;
+            if(n % 2 == 0) continue;
+            bool ok = true;
+            for(ll i = 3; i * i <= n; i += 2){
+                if(n%i == 0){
+                    ok = false;
+                    break;
+                }   
+            }
+            if(ok) {
+                cout << n << endl;
+                break;
+            }
+        }
+
     }
 
 

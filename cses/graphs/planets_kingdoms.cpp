@@ -8,36 +8,54 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 int32_t main(){ _ 
 
+    // Kosaraju
     int n, m; cin >> n >> m;
-    vector<vector<pair<int, ll>>> g(2*n);
-
-    auto get_down = [n](int a) -> int{
-        return a + n;
-    };
-
+    vector<vector<int>> g(n), g_reversed(n);
     for(int i = 0; i < m; i ++){
-        int a, b, c; cin >> a >> b >> c;
-        a--, b--;
-        g[a].push_back({b, c});
-        g[a].push_back({get_down(b), c/2});
-        g[get_down(a)].push_back({get_down(b), c});
+        int a, b; cin >> a >> b;
+        a --, b--;
+        g[a].push_back(b);
+    
+        g_reversed[b].push_back(a);
     }
 
-    vector<ll> dist(2*n, LINF);
-    dist[0] = 0;
-    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<>> pq; 
-    pq.push({0, 0});
-    while(sz(pq)){
-        auto [d, v] = pq.top(); pq.pop();
-        if(dist[v] < d) continue;
-        dist[v] = d;
-        for(auto [u, w] : g[v]){
-            if(dist[v] + w < dist[u]){
-                pq.push({dist[v] + w, u});
-                dist[u] = dist[v]+ w;
-            } 
+    vector<int> order;
+    vector<int> color(n, 0);
+    auto dfs1 = [&](auto&& self, int v) -> void {
+        color[v] = 1;
+        for(int u : g[v]){
+            if(color[u] == 0) self(self, u);
+        }
+        color[v] = 2;
+
+        order.push_back(v);
+    };
+
+    for(int i = 0; i < n; i ++) 
+        if(color[i] == 0) dfs1(dfs1, i);
+
+    reverse(order.begin(), order.end());
+
+    int cnt = 0;
+    vector<int> comp(n, -1);
+    auto dfs2 = [&](auto&& self, int v) -> void {
+        color[v] = 1;
+        for(int u : g_reversed[v])
+            if(color[u] == 0) self(self, u);
+
+        comp[v] = cnt;
+    };
+
+    color.assign(n, 0);
+    for(int v : order){
+        if(color[v] == 0){
+            ++ cnt;
+            dfs2(dfs2, v);
         }
     }
 
-    cout << dist[get_down(n-1)] << endl;
+    cout << cnt << "\n";
+    for(auto el : comp)
+        cout << el << " ";
+    cout << endl;
 }
