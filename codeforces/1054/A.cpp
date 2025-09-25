@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define _ ios_base::sync_with_stdio(0); cin.tie(0);
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fll;
+#define sz(x) (int)x.size()
+#define int ll
+
+int32_t main(){ _
+    int t; cin >> t;
+    while(t--){
+        int n; cin >> n;
+        int res = 0;
+        int cnt = 0;
+        for(int i = 0; i < n; i ++){
+            int a; cin >> a;
+            if(a < 0) cnt ++;
+            else res += 1 - a;
+        }
+
+        res += 2 * (cnt & 1);
+        cout << res << endl;
+    }
+    
+} 
