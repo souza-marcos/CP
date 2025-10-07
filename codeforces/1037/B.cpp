@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define _ ios_base::sync_with_stdio(0); cin.tie(0);
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fll;
+#define sz(x) (int)x.size()
+#define int ll
+
+void solve(){
+    int n, k; cin >> n >> k;
+    vector<int> arr(n);
+
+    int cnt = 0, res = 0;
+    for(int& el : arr) {
+        cin >> el;
+        if(el == 1) {
+            res += cnt/(k + 1) + (cnt%(k + 1) == k);
+            cnt = 0;
+        }
+        else cnt += 1;
+    }
+    res += cnt/(k + 1) + (cnt%(k + 1) == k);
+    cout << res << endl;    
+}
+
+int32_t main(){ _
+    int t; cin >> t;
+    while(t --) solve();
+} 
